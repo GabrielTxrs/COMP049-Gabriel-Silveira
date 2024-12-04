@@ -6,11 +6,10 @@ using namespace std;
 
 int main() {
  
-    int n;
+    string input;
+
     int k;
-
-    char input;
-
+    int n;
     cin >> input;
     cout << input;
 
