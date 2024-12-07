@@ -16,17 +16,18 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
     }                                \
     cout << x[n - 1] << "]" << endl;
 
-string resizeString(int n, const string &str)
+string resizeString(int n, string &str)
 {
     string result;
-
-    for (int i = 0; i < n; i++)
+    // dbg(str);
+    for (int i = 0; i < str.length(); i++)
     {
         for (int j = 0; j < n; j++)
         {
             result += str[i];
         }
     }
+    // dbg(result);
     return result;
 }
 
@@ -38,10 +39,7 @@ int main()
     int b;
     int numLinhaResized;
     int numColunaResized;
-    vector<string> imagem;
-    vector<string> imagemResized;
 
-    string linha;
 
     while (true)
     {
@@ -49,6 +47,8 @@ int main()
         if (n == 0 && m == 0)
             return 0;
 
+        string linha;
+        vector<string> imagem;
         for (int i = 0; i < n; i++)
         {
             cin >> linha;
@@ -57,38 +57,22 @@ int main()
         cin >> a >> b;
         numLinhaResized = a / n;
         numColunaResized = b / m;
-
-        for (size_t i = 0; i < numLinhaResized; i++)
+        vector<string> imagemResized;
+        for (size_t i = 0; i < a; i++)
         {
-            for (size_t j = 0; j < numColunaResized; j++)
-            {
-                imagemResized.push_back(resizeString(numColunaResized, imagem[i]));
-            }
+            // dbg(numColunaResized);
+            // dbg(i/numLinhaResized);
+            // dbg(imagem[i/numLinhaResized]);
+            imagemResized.push_back(resizeString(numColunaResized, imagem[i/numLinhaResized]));
         }
         for (const auto &str : imagemResized)
         {
-            cout << str << "\n";
+            cout << str << endl;
         }
         cout << endl;
-        dbg(a);
-        dbg(b);
+        linha.clear();
+        imagem.clear();
+        imagemResized.clear();
     }
-
     return 0;
 }
-/*
-n m
-3 3
-###
-#__
-###
-6 9
-0 0
-
-#########
-#########
-###______
-###______
-#########
-#########
-*/
