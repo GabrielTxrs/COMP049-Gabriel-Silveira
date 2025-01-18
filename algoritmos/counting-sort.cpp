@@ -15,39 +15,38 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
   }                                                                            \
   cout << x[n - 1] << "]" << endl;
 
-void countingSort(vector<int> A, vector<int> B, int k) {
-  forn(A, k);
-  vector<int> C(k+1, 0);
-
-  for (int j = 0; j < k; j++) {
-    C[A[j]] = C[A[j]] + 1;
-    dbg(A[j]);
-    dbg(C[A[j]]);
-  }
-  forn(C, k);
+vector<int> countingSort(vector<int> A, int k) {
+  int max = A[0];
   for (int i = 0; i < k; i++) {
-    C[i] = C[i] + C[i - 1];
-    dbg(C[i]);
+    if (max < A[i]) {
+      max = A[i];
+    }
+    continue;
   }
-  forn(C, k);
-  for (int j = k-1; j > -1; j--) {
-    B[C[A[j]]] = A[j];
-    C[A[j]] = C[A[j]] - 1;
+  vector<int> count(max + 1, 0);
+
+  for (int j = 0; j < k; j++)
+    count[A[j]]++;
+
+  for (int i = 1; i <= max; i++)
+    count[i] += count[i - 1];
+
+  vector<int> arrayOrd(k);
+  for (int j = k - 1; j > -1; j--) {
+    arrayOrd[count[A[j]] - 1] = A[j];
+    count[A[j]]--;
   }
-  forn(A, k);
-  forn(B, k);
-  forn(C, k);
+  return arrayOrd;
 }
 
 int main() {
   _ ll n;
   // cin >> n;
-  vector<int> 
-  A ={2, 5, 3, 0, 2, 3, 0, 3};
-  // [0, 0, 2, 2, 3, 3, 3, 5]
+  vector<int> A = {2, 5, 3, 0, 2, 3, 0, 3};
+  //              [0, 0, 2, 2, 3, 3, 3, 5]
   int k = A.size();
-  vector<int> B(k+1, 0);
-  countingSort(A, B, k);
 
+  vector<int> arrayOrd = countingSort(A, k);
+  forn(arrayOrd, k);
   return 0;
 }
