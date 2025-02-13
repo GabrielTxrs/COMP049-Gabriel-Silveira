@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-#include <functional>
 #include <iostream>
-#include <unordered_map>
 using namespace std;
 typedef long long ll;
 const int INF = 0x3f3f3f3f;
@@ -17,25 +15,18 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
   }                                                                            \
   cout << x[n - 1] << "]" << endl;
 
-vector<int> twoSum(vector<int> nums, int target) {
-  vector<int> resultado;
-  int diff;
-  unordered_map<int, int> seen;
-  for (int i; i < nums.size(); i++) {
-    dbg(i);
-    diff = target - nums[i];
-    dbg(diff);
-    // seen.
-    if (seen.find(diff) != seen.end()) {
-      resultado = {seen[diff], i};
-      // resultado.push_back(seen[diff]); resultado.push_back(i);
-      forn(resultado.size(), resultado);
-      return resultado;
-    }
-    // seen[nums[i]] = i;
-    seen.insert(make_pair(nums[i], i));
+vector<int> twoSum(vector<int> &nums, int target) {
+  unordered_map<int, int> hash;
+  for (int i = 0; i < nums.size(); i++) {
+    hash[nums[i]] = i;
   }
-  return resultado;
+  for (int i = 0; i < nums.size(); i++) {
+    int complement = target - nums[i];
+    if (hash.find(complement) != hash.end() && hash[complement] != i) {
+      return {i, hash[complement]};
+    }
+  }
+  return {};
 }
 
 int main() {

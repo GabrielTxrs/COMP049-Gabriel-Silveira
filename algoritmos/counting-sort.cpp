@@ -41,7 +41,6 @@ vector<int> countingSort(vector<int> A, int k) {
 
 int main() {
   _ ll n;
-  // cin >> n;
   vector<int> A = {2, 5, 3, 0, 2, 3, 0, 3};
   //              [0, 0, 2, 2, 3, 3, 3, 5]
   int k = A.size();
